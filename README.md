@@ -21,6 +21,7 @@ benefits offered by savings account + "With Insurance";
 6. showInfo() - Returns details of account number, account name, and balance.
 
 BankAcountDecorator must be an interface.
+# Class Diagram
+![image](https://github.com/JLNerecina/Decorator-Pattern-CIMB/blob/main/Decorator%20Pattern%20UML.png)
 
-# UML Diagram
  
