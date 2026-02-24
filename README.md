@@ -1,27 +1,99 @@
-# Decorator-Pattern-CIMB
-CIMB is a digital bank that offers GSave and UpSave savings accounts.   As with a typical Savings Account, it contains accountNumber, accountName, and a balance for that account.
+# Decorator Pattern - CIMB Bank
 
-The typical savings account offers an interest rate of 1%.
-The benefits of the typical savings account is the same with the "Standard Savings Account" as compared to other banks.
+A Java implementation of the **Decorator Pattern** using CIMB (Banco Comerico Internacional de México), a digital bank offering multiple savings account types with varying interest rates and benefits.
 
-The GSave account offers an interest rate of 2.5%.
-Benefits include the "Standard Savings Account" plus access to "GCash transfer".
+## Overview
 
-The UpSave account offers the highest interest rate of 4.0%.
-Benefits include the "Standard Savings Account" plus "with Insurance".
+CIMB provides three types of savings accounts, each building upon the standard savings account with additional features and higher interest rates:
 
-Description of the following methods
-1. showAccountType() - Either returns "Savings Account", "GSave" or "UpSave"
-2. getInterestRate() - Either returns 1% for Savings Account; 2.5% for GSave; 4.0% UpSave
-3. getBalance() - Returns the balance of the account set.
-4. showBenefits() - Either returns "Standard Savings Account" for Savings Account;
-benefits offered by savings account + "GSave Transfer";
-benefits offered by savings account + "With Insurance";
-5. computeBalanceWithInterest() - returns new balance by computing the balance plus the interest depending on the interest rate.
-6. showInfo() - Returns details of account number, account name, and balance.
+| Account Type | Interest Rate | Key Benefits |
+|---|---|---|
+| **Savings Account** | 1.0% | Standard features |
+| **GSave** | 2.5% | Standard features + GCash Transfer |
+| **UpSave** | 4.0% | Standard features + Insurance |
 
-BankAcountDecorator must be an interface.
-# Class Diagram
-![image](https://github.com/JLNerecina/Decorator-Pattern-CIMB/blob/main/Decorator%20Pattern%20UML.png)
+## Account Details
 
- 
+### Base Account Information
+Each account contains:
+- **Account Number**: Unique identifier for the account
+- **Account Name**: Name of the account holder
+- **Balance**: Current account balance
+
+### Implemented Methods
+
+| Method | Description | Returns |
+|---|---|---|
+| `showAccountType()` | Displays the account type | "Savings Account", "GSave", or "UpSave" |
+| `getInterestRate()` | Returns the annual interest rate | 1% / 2.5% / 4.0% depending on account type |
+| `getBalance()` | Returns the current account balance | Current balance value |
+| `showBenefits()` | Lists all account benefits | List of benefits for the account type |
+| `computeBalanceWithInterest()` | Calculates balance after applying interest | New balance (balance × (1 + interest rate)) |
+| `showInfo()` | Displays complete account details | Account number, name, and balance |
+
+## Design Pattern
+
+This project implements the **Decorator Pattern**, a structural design pattern that allows behavior to be added to objects dynamically. Each account type (GSave, UpSave) decorates the base SavingsAccount with additional features.
+
+### Key Components
+
+- **BankAccount** (Interface): Defines the contract for all account types
+- **BankAccountDecorator** (Interface): Defines the decorator interface
+- **SavingsAccount** (Concrete Component): The base savings account implementation
+- **GSave** (Concrete Decorator): Adds GCash Transfer feature to the savings account
+- **UpSave** (Concrete Decorator): Adds Insurance feature to the savings account
+- **CIMB** (Client): Demonstrates usage of the pattern
+
+## Class Diagram
+
+![Decorator Pattern UML Diagram](https://github.com/JLNerecina/Decorator-Pattern-CIMB/blob/main/Decorator%20Pattern%20UML.png)
+
+## Usage Example
+
+```java
+// Create a base savings account
+BankAccount account = new SavingsAccount("001", "John Doe", 10000);
+
+// Decorate with GSave features
+account = new GSave(account);
+
+// Decorate with UpSave features (or use UpSave instead of GSave)
+// account = new UpSave(account);
+
+// Use the account
+System.out.println(account.showAccountType());        // GSave
+System.out.println(account.getInterestRate());        // 2.5
+System.out.println(account.showBenefits());           // Standard + GCash Transfer
+System.out.println(account.computeBalanceWithInterest()); // 10250
+System.out.println(account.showInfo());               // Full account details
+```
+
+## Requirements
+
+- **Java 8** or higher
+- BankAccount must be an interface
+- BankAccountDecorator must be an interface
+
+## Files
+
+- `BankAccount.java` - Interface defining account contract
+- `BankAccountDecorator.java` - Interface for decorators
+- `SavingsAccount.java` - Base savings account implementation
+- `GSave.java` - Decorator adding GCash Transfer feature
+- `UpSave.java` - Decorator adding Insurance feature
+- `CIMB.java` - Demonstration/main class
+- `README.md` - This file
+- `Decorator Pattern UML.png` - UML diagram
+
+## Key Advantages of This Implementation
+
+✅ **Flexible**: Easily add new account types without modifying existing code
+✅ **Maintainable**: Each feature is encapsulated in its own decorator
+✅ **Composable**: Features can be combined in various ways
+✅ **Single Responsibility**: Each class has one reason to change
+
+---
+
+**Author**: JLNerecina  
+**Pattern**: Decorator (Structural Design Pattern)
+```
